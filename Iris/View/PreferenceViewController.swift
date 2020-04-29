@@ -16,7 +16,7 @@ class PreferenceViewController: NSViewController {
 	
 	private var debounce = false
 	private var config: UserSetting = UserSetting()
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		

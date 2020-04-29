@@ -10,14 +10,18 @@
 		330145A5244C7D9C007DC22E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330145A4244C7D9C007DC22E /* AppDelegate.swift */; };
 		330145A9244C7D9C007DC22E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 330145A8244C7D9C007DC22E /* Assets.xcassets */; };
 		330145AC244C7D9C007DC22E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 330145AA244C7D9C007DC22E /* Main.storyboard */; };
+		3396A8BB245989C300DBEA02 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396A8BA245989C300DBEA02 /* Device.swift */; };
+		3396A8BD24598FA500DBEA02 /* DeviceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396A8BC24598FA500DBEA02 /* DeviceDelegate.swift */; };
+		3396A8BF2459A1E800DBEA02 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396A8BE2459A1E800DBEA02 /* Reachability.swift */; };
+		3396A8C12459A1F500DBEA02 /* ReachabilityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396A8C02459A1F500DBEA02 /* ReachabilityDelegate.swift */; };
 		33C07CD1244C8850005EDE35 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CD0244C8850005EDE35 /* PreferenceViewController.swift */; };
-		33C07CD5244C8B95005EDE35 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CD4244C8B95005EDE35 /* HTTP.swift */; };
 		33C07CD8244C8BE8005EDE35 /* ScreenGrabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CD7244C8BE8005EDE35 /* ScreenGrabber.swift */; };
 		33C07CDA244C8C3D005EDE35 /* DisplayConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CD9244C8C3D005EDE35 /* DisplayConfiguration.swift */; };
 		33C07CDC244C8C7F005EDE35 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CDB244C8C7F005EDE35 /* ImageProcessor.swift */; };
 		33C07CDF244C8D82005EDE35 /* DisplayConfigurationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CDE244C8D82005EDE35 /* DisplayConfigurationDelegate.swift */; };
 		33C07CE1244C8D97005EDE35 /* ScreenGrabberDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CE0244C8D97005EDE35 /* ScreenGrabberDelegate.swift */; };
 		33C07CE3244CBB93005EDE35 /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CE2244CBB93005EDE35 /* UserSetting.swift */; };
+		33C228F824570CDC00E76D0F /* Credits..rtf in Resources */ = {isa = PBXBuildFile; fileRef = 33C228F724570CDC00E76D0F /* Credits..rtf */; };
 		33E85D62244DC67C000B72AD /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E85D61244DC67C000B72AD /* Util.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,14 +32,18 @@
 		330145AB244C7D9C007DC22E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		330145AD244C7D9C007DC22E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		330145AE244C7D9C007DC22E /* Iris.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Iris.entitlements; sourceTree = "<group>"; };
+		3396A8BA245989C300DBEA02 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		3396A8BC24598FA500DBEA02 /* DeviceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDelegate.swift; sourceTree = "<group>"; };
+		3396A8BE2459A1E800DBEA02 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		3396A8C02459A1F500DBEA02 /* ReachabilityDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityDelegate.swift; sourceTree = "<group>"; };
 		33C07CD0244C8850005EDE35 /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
-		33C07CD4244C8B95005EDE35 /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 		33C07CD7244C8BE8005EDE35 /* ScreenGrabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenGrabber.swift; sourceTree = "<group>"; };
 		33C07CD9244C8C3D005EDE35 /* DisplayConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayConfiguration.swift; sourceTree = "<group>"; };
 		33C07CDB244C8C7F005EDE35 /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		33C07CDE244C8D82005EDE35 /* DisplayConfigurationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayConfigurationDelegate.swift; sourceTree = "<group>"; };
 		33C07CE0244C8D97005EDE35 /* ScreenGrabberDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenGrabberDelegate.swift; sourceTree = "<group>"; };
 		33C07CE2244CBB93005EDE35 /* UserSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
+		33C228F724570CDC00E76D0F /* Credits..rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits..rtf; sourceTree = "<group>"; };
 		33E85D61244DC67C000B72AD /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +82,7 @@
 				330145A8244C7D9C007DC22E /* Assets.xcassets */,
 				330145AD244C7D9C007DC22E /* Info.plist */,
 				330145AE244C7D9C007DC22E /* Iris.entitlements */,
+				33C228F724570CDC00E76D0F /* Credits..rtf */,
 			);
 			path = Iris;
 			sourceTree = "<group>";
@@ -105,7 +114,8 @@
 		33C07CD3244C8B84005EDE35 /* Transport */ = {
 			isa = PBXGroup;
 			children = (
-				33C07CD4244C8B95005EDE35 /* HTTP.swift */,
+				3396A8BA245989C300DBEA02 /* Device.swift */,
+				3396A8BE2459A1E800DBEA02 /* Reachability.swift */,
 			);
 			path = Transport;
 			sourceTree = "<group>";
@@ -115,6 +125,8 @@
 			children = (
 				33C07CDE244C8D82005EDE35 /* DisplayConfigurationDelegate.swift */,
 				33C07CE0244C8D97005EDE35 /* ScreenGrabberDelegate.swift */,
+				3396A8BC24598FA500DBEA02 /* DeviceDelegate.swift */,
+				3396A8C02459A1F500DBEA02 /* ReachabilityDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -177,6 +189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33C228F824570CDC00E76D0F /* Credits..rtf in Resources */,
 				330145A9244C7D9C007DC22E /* Assets.xcassets in Resources */,
 				330145AC244C7D9C007DC22E /* Main.storyboard in Resources */,
 			);
@@ -191,11 +204,14 @@
 			files = (
 				33C07CE3244CBB93005EDE35 /* UserSetting.swift in Sources */,
 				33C07CDA244C8C3D005EDE35 /* DisplayConfiguration.swift in Sources */,
-				33C07CD5244C8B95005EDE35 /* HTTP.swift in Sources */,
+				3396A8BF2459A1E800DBEA02 /* Reachability.swift in Sources */,
+				3396A8BB245989C300DBEA02 /* Device.swift in Sources */,
+				3396A8BD24598FA500DBEA02 /* DeviceDelegate.swift in Sources */,
 				33C07CD1244C8850005EDE35 /* PreferenceViewController.swift in Sources */,
 				330145A5244C7D9C007DC22E /* AppDelegate.swift in Sources */,
 				33C07CDC244C8C7F005EDE35 /* ImageProcessor.swift in Sources */,
 				33C07CD8244C8BE8005EDE35 /* ScreenGrabber.swift in Sources */,
+				3396A8C12459A1F500DBEA02 /* ReachabilityDelegate.swift in Sources */,
 				33E85D62244DC67C000B72AD /* Util.swift in Sources */,
 				33C07CE1244C8D97005EDE35 /* ScreenGrabberDelegate.swift in Sources */,
 				33C07CDF244C8D82005EDE35 /* DisplayConfigurationDelegate.swift in Sources */,

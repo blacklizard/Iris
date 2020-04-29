@@ -12,24 +12,39 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 	private var preferenceWindowController: NSWindowController?
 	private var screenGrabber:ScreenGrabber?
-	private let transport: HTTP = HTTP()
-	private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+	private let reachability:Reachability = Reachability()
+	private let device: Device = Device()
 	private var config = UserSetting()
+	private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+	
+	private var timeoutCount: Int = 0
+	var reachablityTimer: Timer!
+	
 	@IBOutlet weak var statusMenu: NSMenu!
+	@IBOutlet weak var toggleMenuItem: NSMenuItem!
 	
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		attachStatusMenu()
 		registerObserver()
-		transport.setEndpoint(endpoint: config.getEndpoint())
 		
 		screenGrabber = ScreenGrabber()
 		screenGrabber?.screenGrabberDelegate = self
 		screenGrabber?.setLedCount(count: config.getLedCount())
-		screenGrabber?.start()
+		
+		reachability.reachabilityDelegate = self
+		device.setEndpoint(endpoint: config.getEndpoint())
+		
+		if(device.isReachable()) {
+			toggleMenuItem.title = "Pause"
+			screenGrabber?.start()
+		}
 	}
-
+	
 	func applicationWillTerminate(_ aNotification: Notification) {
 		// Insert code here to tear down your application
+	}
+	@IBAction func toggleState(_ sender: Any) {
+		toggleStateItem()
 	}
 	
 	@IBAction func showPreference(_ sender: NSMenuItem) {
@@ -40,6 +55,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		NSApp.activate(ignoringOtherApps: true)
 		preferenceWindowController?.showWindow(self)
 		preferenceWindowController?.window?.makeKey()
+	}
+	
+	private func toggleStateItem() {
+		if(toggleMenuItem.title == "Resume") {
+			screenGrabber?.start()
+			toggleMenuItem.title = "Pause"
+		} else {
+			screenGrabber?.stop()
+			toggleMenuItem.title = "Resume"
+		}
 	}
 	
 	private func attachStatusMenu() {
@@ -61,7 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 	
 	@objc func endpointDidUpdate(notification: NSNotification) {
-		transport.setEndpoint(endpoint:  config.getEndpoint())
+		device.setEndpoint(endpoint:  config.getEndpoint())
 	}
 	
 	@objc func ledCountDidUpdate(notification: NSNotification) {
@@ -71,8 +96,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension AppDelegate: ScreenGrabberDelegate {
 	func dataDidUpdated(data: String) {
-		transport.send(body: data)
+		let errored = device.send(data: data)
+		if errored {
+			timeoutCount += 1
+			if timeoutCount >= 3{
+				screenGrabber?.stop()
+				reachability.start(device: device)
+			}
+		}
 	}
 }
+
+extension AppDelegate: ReachabilityDelegate {
+	func deviceDidBecomeOnline() {
+		screenGrabber?.start()
+	}
+}
+
 
 

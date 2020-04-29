@@ -30,7 +30,7 @@ class ScreenGrabber {
 	func setLedCount(count: Int) {
 		ledCount = count
 	}
-
+	
 	func start() {
 		screenCaptureTimer = Timer.scheduledTimer(timeInterval: 0.01 , target: self, selector: #selector(self.grab),userInfo: nil, repeats: true)
 		RunLoop.current.add(screenCaptureTimer!, forMode: RunLoop.Mode.common)

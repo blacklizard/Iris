@@ -14,7 +14,7 @@ class UserSetting {
 	private var endpoint: String!
 	private var ledCount: Int!
 	private var staticColor: String!
-
+	
 	
 	init() {
 		endpoint = UserDefaults.standard.string(forKey: "endpoint")
