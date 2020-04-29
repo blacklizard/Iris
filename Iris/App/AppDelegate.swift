@@ -32,6 +32,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		screenGrabber?.setLedCount(count: config.getLedCount())
 		
 		reachability.reachabilityDelegate = self
+		
+		let endpoint = UserDefaults.standard.string(forKey: "endpoint")
+		if(endpoint == nil) {
+			showPreference()
+		}
+		
 		device.setEndpoint(endpoint: config.getEndpoint())
 		
 		if(device.isReachable()) {
@@ -47,7 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		toggleStateItem()
 	}
 	
-	@IBAction func showPreference(_ sender: NSMenuItem) {
+	@IBAction func showPreference(_ sender: NSMenuItem = NSMenuItem()) {
 		screenGrabber?.stop()
 		if preferenceWindowController == nil {
 			preferenceWindowController = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "PreferenceWindowController") as? NSWindowController
