@@ -29,26 +29,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		
 		screenGrabber = ScreenGrabber()
 		screenGrabber?.screenGrabberDelegate = self
-		screenGrabber?.setLedCount(count: config.getLedCount())
 		
 		reachability.reachabilityDelegate = self
 		
-		let endpoint = UserDefaults.standard.string(forKey: "endpoint")
-		if(endpoint == nil) {
+		if(!config.isSettingComplete()) {
 			showPreference()
-		}
-		
-		device.setEndpoint(endpoint: config.getEndpoint())
-		
-		if(device.isReachable()) {
-			toggleMenuItem.title = "Pause"
-			screenGrabber?.start()
+		} else {
+			updateSetting()
+			if(device.isReachable()) {
+				toggleMenuItem.title = "Pause"
+				screenGrabber?.start()
+			}
 		}
 	}
 	
 	func applicationWillTerminate(_ aNotification: Notification) {
 		// Insert code here to tear down your application
 	}
+	
 	@IBAction func toggleState(_ sender: Any) {
 		toggleStateItem()
 	}
@@ -82,28 +80,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 	
 	private func registerObserver() {
-		NotificationCenter.default.addObserver(self, selector: #selector(endpointDidUpdate(notification:)), name: NSNotification.Name("endpoint"), object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(ledCountDidUpdate(notification:)), name: NSNotification.Name("ledCount"), object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(resumeScreenGrabber(notification:)), name: NSNotification.Name("configClosed"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateSetting), name: NSNotification.Name("setting.update"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(resumeScreenGrabber(notification:)), name: NSNotification.Name("configDidClose"), object: nil)
 	}
 	
 	@objc func resumeScreenGrabber(notification: NSNotification) {
-		screenGrabber?.start()
+		if(config.isSettingComplete()) {
+			screenGrabber?.start()
+		}
 	}
 	
-	@objc func endpointDidUpdate(notification: NSNotification) {
-		device.setEndpoint(endpoint:  config.getEndpoint())
-	}
-	
-	@objc func ledCountDidUpdate(notification: NSNotification) {
+	@objc func updateSetting() {
+		device.setEndpoint(endpoint:  config.getEndpoint()!)
 		screenGrabber?.setLedCount(count: config.getLedCount())
+		screenGrabber?.setLedDirection(direction:  config.getLedDirection())
 	}
 }
 
 extension AppDelegate: ScreenGrabberDelegate {
-	func dataDidUpdated(data: String) {
-		let errored = device.send(data: data)
-		if errored {
+	func dataDidUpdated(data: [UInt8]) {
+		let success = device.send(data: data)
+		if !success {
 			timeoutCount += 1
 			if timeoutCount >= 3{
 				screenGrabber?.stop()
@@ -116,6 +113,7 @@ extension AppDelegate: ScreenGrabberDelegate {
 extension AppDelegate: ReachabilityDelegate {
 	func deviceDidBecomeOnline() {
 		screenGrabber?.start()
+		timeoutCount = 0
 	}
 }
 

@@ -8,45 +8,49 @@
 
 import Foundation
 
-
-
 class UserSetting {
-	private var endpoint: String!
-	private var ledCount: Int!
-	private var staticColor: String!
-	
-	
-	init() {
-		endpoint = UserDefaults.standard.string(forKey: "endpoint")
-		if(endpoint == nil) {
-			UserDefaults.standard.set("http://192.168.1.108:8080/", forKey: "endpoint")
-			endpoint = "http://192.168.1.108:8080/"
+	func isSettingComplete() ->  Bool {
+		
+		guard let _:String = getEndpoint() else {
+			return false
 		}
 		
-		ledCount = UserDefaults.standard.integer(forKey: "ledCount")
+		let ledCount = getLedCount()
+		
 		if(ledCount == 0) {
-			UserDefaults.standard.set(60, forKey: "ledCount")
-			ledCount = 60
+			return false
 		}
+		
+		return true
 	}
 	
-	func getEndpoint() -> String{
-		return UserDefaults.standard.string(forKey: "endpoint")!
+	func getEndpoint() -> String? {
+		if(UserDefaults.standard.string(forKey: "socket") == nil) {
+			return nil
+		}
+		return UserDefaults.standard.string(forKey: "socket")!
 	}
 	
 	func setEndpoint(endpoint: String) {
-		UserDefaults.standard.set(endpoint, forKey: "endpoint")
-		NotificationCenter.default.post(name: NSNotification.Name("endpoint"), object: nil)
-		self.endpoint = endpoint
+		UserDefaults.standard.set(endpoint, forKey: "socket")
+		NotificationCenter.default.post(name: NSNotification.Name("setting.update"), object: nil)
 	}
 	
-	func getLedCount() -> Int{
+	func getLedCount() -> Int {
 		return UserDefaults.standard.integer(forKey: "ledCount")
 	}
 	
 	func setLedCount(count: Int) {
 		UserDefaults.standard.set(count, forKey: "ledCount")
-		NotificationCenter.default.post(name: NSNotification.Name("ledCount"), object: nil)
-		ledCount = count
+		NotificationCenter.default.post(name: NSNotification.Name("setting.update"), object: nil)
+	}
+	
+	func getLedDirection() -> String {
+		return UserDefaults.standard.string(forKey: "ledDirection") ?? "1"
+	}
+	
+	func setLedDirection(direction: String) {
+		UserDefaults.standard.set(direction, forKey: "ledDirection")
+		NotificationCenter.default.post(name: NSNotification.Name("setting.update"), object: nil)
 	}
 }

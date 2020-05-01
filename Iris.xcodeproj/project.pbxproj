@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 		33C07CDF244C8D82005EDE35 /* DisplayConfigurationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CDE244C8D82005EDE35 /* DisplayConfigurationDelegate.swift */; };
 		33C07CE1244C8D97005EDE35 /* ScreenGrabberDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CE0244C8D97005EDE35 /* ScreenGrabberDelegate.swift */; };
 		33C07CE3244CBB93005EDE35 /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C07CE2244CBB93005EDE35 /* UserSetting.swift */; };
+		33C1CBBD245C2B9B00ED6334 /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = 33C1CBBC245C2B9B00ED6334 /* Socket */; };
 		33C228F824570CDC00E76D0F /* Credits..rtf in Resources */ = {isa = PBXBuildFile; fileRef = 33C228F724570CDC00E76D0F /* Credits..rtf */; };
 		33E85D62244DC67C000B72AD /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E85D61244DC67C000B72AD /* Util.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33C1CBBD245C2B9B00ED6334 /* Socket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +149,9 @@
 			dependencies = (
 			);
 			name = Iris;
+			packageProductDependencies = (
+				33C1CBBC245C2B9B00ED6334 /* Socket */,
+			);
 			productName = Iris;
 			productReference = 330145A1244C7D9C007DC22E /* Iris.app */;
 			productType = "com.apple.product-type.application";
@@ -175,6 +180,9 @@
 				Base,
 			);
 			mainGroup = 33014598244C7D9C007DC22E;
+			packageReferences = (
+				33C1CBBB245C2B9B00ED6334 /* XCRemoteSwiftPackageReference "BlueSocket" */,
+			);
 			productRefGroup = 330145A2244C7D9C007DC22E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -357,7 +365,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacklizard.Iris;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -376,7 +384,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blacklizard.Iris;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -405,6 +413,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		33C1CBBB245C2B9B00ED6334 /* XCRemoteSwiftPackageReference "BlueSocket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/IBM-Swift/BlueSocket";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.52;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		33C1CBBC245C2B9B00ED6334 /* Socket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33C1CBBB245C2B9B00ED6334 /* XCRemoteSwiftPackageReference "BlueSocket" */;
+			productName = Socket;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 33014599244C7D9C007DC22E /* Project object */;
 }

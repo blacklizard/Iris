@@ -9,6 +9,6 @@
 import Foundation
 
 protocol ScreenGrabberDelegate {
-	func dataDidUpdated(data: String)
+	func dataDidUpdated(data: [UInt8])
 }
 

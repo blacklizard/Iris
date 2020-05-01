@@ -12,7 +12,7 @@ class PreferenceViewController: NSViewController {
 	
 	@IBOutlet weak var endpointTextField: NSTextField!
 	@IBOutlet weak var ledCountTextField: NSTextField!
-	@IBOutlet weak var colorPicker: NSColorWell!
+	@IBOutlet weak var ledDirection: NSPopUpButton!
 	
 	private var debounce = false
 	private var config: UserSetting = UserSetting()
@@ -23,15 +23,21 @@ class PreferenceViewController: NSViewController {
 		endpointTextField.delegate = self
 		ledCountTextField.delegate = self
 		
-		endpointTextField.stringValue = config.getEndpoint()
+		endpointTextField.stringValue = config.getEndpoint() ?? ""
 		ledCountTextField.stringValue = String(config.getLedCount())
+		
+		ledDirection.selectItem(withTag: Int(config.getLedDirection())!)
 	}
 	
 	override func viewWillDisappear() {
 		super.viewWillDisappear()
-		NotificationCenter.default.post(name: NSNotification.Name("configClosed"), object: nil)
+		NotificationCenter.default.post(name: NSNotification.Name("configDidClose"), object: nil)
 	}
 	
+	@IBAction func ledDirectionChanged(_ sender: NSPopUpButton) {
+		let direction = sender.selectedItem!.identifier!.rawValue as String
+		config.setLedDirection(direction: direction)
+	}
 }
 
 extension PreferenceViewController: NSTextFieldDelegate {
@@ -39,7 +45,7 @@ extension PreferenceViewController: NSTextFieldDelegate {
 		if let textField = notification.object as? NSTextField {
 			switch textField {
 			case endpointTextField:
-				if(!textField.stringValue.isValidURL()) {
+				if(!textField.stringValue.isValidIPv4()) {
 					textField.backgroundColor = .red
 				} else {
 					textField.backgroundColor = .none
