@@ -53,4 +53,22 @@ class UserSetting {
 		UserDefaults.standard.set(direction, forKey: "ledDirection")
 		NotificationCenter.default.post(name: NSNotification.Name("setting.update"), object: nil)
 	}
+	
+	func getIsStaticMode() -> Bool {
+		return UserDefaults.standard.bool(forKey: "static")
+	}
+	
+	func setStaticMode(is_static: Bool) {
+		UserDefaults.standard.set(is_static, forKey: "static")
+		NotificationCenter.default.post(name: NSNotification.Name("static.did.change"), object: nil)
+	}
+	
+	func getColor() -> [UInt8] {
+		return (UserDefaults.standard.array(forKey: "color") ?? [UInt8(255),UInt8(255),UInt8(255)]) as [UInt8]
+	}
+	
+	func setStaticColor(color: [UInt8]) {
+		UserDefaults.standard.set(color, forKey: "color")
+		NotificationCenter.default.post(name: NSNotification.Name("static.did.change"), object: nil)
+	}
 }

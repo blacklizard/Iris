@@ -38,13 +38,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			updateSetting()
 			if(device.isReachable()) {
 				toggleMenuItem.title = "Pause"
-				screenGrabber?.start()
+				startStrip()
 			}
 		}
 	}
 	
 	func applicationWillTerminate(_ aNotification: Notification) {
-		// Insert code here to tear down your application
+		detachObserver()
 	}
 	
 	@IBAction func toggleState(_ sender: Any) {
@@ -61,6 +61,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		preferenceWindowController?.window?.makeKey()
 	}
 	
+	private func startStrip() {
+		if(config.getIsStaticMode() == true) {
+			var color:[UInt8] = [UInt8(2)]
+			color = color + config.getColor()
+			let _ = device.send(data: color)
+		} else {
+			screenGrabber?.start()
+		}
+	}
 	private func toggleStateItem() {
 		if(toggleMenuItem.title == "Resume") {
 			screenGrabber?.start()
@@ -79,14 +88,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		statusItem.menu = statusMenu
 	}
 	
+	private func detachObserver() {
+		NotificationCenter.default.removeObserver(self, name: NSNotification.Name("setting.update"), object: nil)
+		NotificationCenter.default.removeObserver(self, name: NSNotification.Name("static.did.change"), object: nil)
+		NotificationCenter.default.removeObserver(self, name: NSNotification.Name("configDidClose"), object: nil)
+	}
+	
 	private func registerObserver() {
 		NotificationCenter.default.addObserver(self, selector: #selector(updateSetting), name: NSNotification.Name("setting.update"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(staticConfigDidChange), name: NSNotification.Name("static.did.change"), object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(resumeScreenGrabber(notification:)), name: NSNotification.Name("configDidClose"), object: nil)
+	}
+	
+	@objc func staticConfigDidChange() {
+		screenGrabber?.stop()
+		let isEnabled  = config.getIsStaticMode()
+		var color:[UInt8] = [UInt8(2)]
+		if(isEnabled) {
+			color = color + config.getColor()
+		} else {
+			color = color + [UInt8(0), UInt8(0), UInt8(0)]
+		}
+		let _ = device.send(data: color)
 	}
 	
 	@objc func resumeScreenGrabber(notification: NSNotification) {
 		if(config.isSettingComplete()) {
-			screenGrabber?.start()
+			startStrip()
 		}
 	}
 	
@@ -112,7 +140,7 @@ extension AppDelegate: ScreenGrabberDelegate {
 
 extension AppDelegate: ReachabilityDelegate {
 	func deviceDidBecomeOnline() {
-		screenGrabber?.start()
+		startStrip()
 		timeoutCount = 0
 	}
 }

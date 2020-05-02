@@ -13,8 +13,9 @@ class PreferenceViewController: NSViewController {
 	@IBOutlet weak var endpointTextField: NSTextField!
 	@IBOutlet weak var ledCountTextField: NSTextField!
 	@IBOutlet weak var ledDirection: NSPopUpButton!
+	@IBOutlet weak var staticColor: NSButton!
 	
-	private var debounce = false
+	private var colorSelectionThrottler = Throttler(minimumDelay: 0.009)
 	private var config: UserSetting = UserSetting()
 	
 	override func viewDidLoad() {
@@ -27,11 +28,28 @@ class PreferenceViewController: NSViewController {
 		ledCountTextField.stringValue = String(config.getLedCount())
 		
 		ledDirection.selectItem(withTag: Int(config.getLedDirection())!)
+		
+		staticColor.state = config.getIsStaticMode() == true ? .on : .off
 	}
 	
 	override func viewWillDisappear() {
 		super.viewWillDisappear()
 		NotificationCenter.default.post(name: NSNotification.Name("configDidClose"), object: nil)
+	}
+	@IBAction func colorChanged(_ sender: NSColorWell) {
+		colorSelectionThrottler.throttle {
+			self.config.setStaticColor(color: sender.color.toHexBytes)
+		}
+	}
+	
+	@IBAction func modeChanged(_ sender: NSButton) {
+		switch sender.state {
+			case .on:
+				config.setStaticMode(is_static: true)
+			case .off:
+				config.setStaticMode(is_static: false)
+			default: break
+		}
 	}
 	
 	@IBAction func ledDirectionChanged(_ sender: NSPopUpButton) {
@@ -58,8 +76,7 @@ extension PreferenceViewController: NSTextFieldDelegate {
 					textField.backgroundColor = .none
 					config.setLedCount(count: Int(textField.stringValue)!)
 				}
-			default:
-				print("nothing")
+			default: break
 			}
 		}
 	}

@@ -740,11 +740,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="PreferenceViewController" customModule="Iris" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="350" height="187"/>
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="268"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dEU-Fa-sbG">
-                                <rect key="frame" x="18" y="151" width="80" height="16"/>
+                                <rect key="frame" x="18" y="232" width="80" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Controller IP" id="5SN-SU-dTy">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -753,7 +753,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b9y-O0-2qI">
-                                <rect key="frame" x="20" y="122" width="310" height="21"/>
+                                <rect key="frame" x="20" y="203" width="310" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="sLV-VE-agt">
                                     <font key="font" metaFont="system"/>
@@ -762,7 +762,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J4t-O0-Wcu">
-                                <rect key="frame" x="18" y="98" width="69" height="16"/>
+                                <rect key="frame" x="18" y="179" width="69" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="LED Count" id="9oi-AO-hJl">
                                     <font key="font" metaFont="system"/>
@@ -771,7 +771,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ntr-MQ-Ict">
-                                <rect key="frame" x="20" y="69" width="310" height="21"/>
+                                <rect key="frame" x="20" y="150" width="310" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="rmp-WQ-GVj">
                                     <font key="font" metaFont="system"/>
@@ -780,7 +780,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="526-dn-4uk">
-                                <rect key="frame" x="20" y="45" width="87" height="16"/>
+                                <rect key="frame" x="18" y="126" width="87" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="LED Direction" id="2i1-Xo-9IY">
                                     <font key="font" metaFont="system"/>
@@ -789,7 +789,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MsE-X6-Yee">
-                                <rect key="frame" x="18" y="13" width="315" height="25"/>
+                                <rect key="frame" x="18" y="94" width="315" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="LEFT TO RIGHT" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="uTn-Ei-1GB" id="LjO-a4-Ab5">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -809,17 +809,41 @@
                                     <action selector="ledDirectionChanged:" target="XfG-lQ-9wD" id="z0q-Fa-Y7T"/>
                                 </connections>
                             </popUpButton>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-rO-nil">
+                                <rect key="frame" x="18" y="49" width="117" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Use static color" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="EE5-Ki-AnB">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="modeChanged:" target="XfG-lQ-9wD" id="axc-WL-46V"/>
+                                </connections>
+                            </button>
+                            <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="kaC-mc-uDB">
+                                <rect key="frame" x="20" y="77" width="310" height="5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </box>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MPk-Ds-UhS">
+                                <rect key="frame" x="20" y="20" width="44" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="colorChanged:" target="XfG-lQ-9wD" id="yin-BA-B7B"/>
+                                </connections>
+                            </colorWell>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="endpointTextField" destination="b9y-O0-2qI" id="u3z-32-AUC"/>
                         <outlet property="ledCountTextField" destination="ntr-MQ-Ict" id="mmd-qf-CkM"/>
                         <outlet property="ledDirection" destination="MsE-X6-Yee" id="0aL-23-5XX"/>
+                        <outlet property="staticColor" destination="I8c-rO-nil" id="ApK-0q-GEY"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="632.5"/>
+            <point key="canvasLocation" x="20" y="673"/>
         </scene>
     </scenes>
 </document>

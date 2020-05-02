@@ -71,7 +71,8 @@ class ScreenGrabber {
 	
 	private func buildForSending(image: CGImage) {
 		let bitmapRep = NSBitmapImageRep(cgImage: image)
-		var container: [UInt8] = []
+		var container: [UInt8] = [UInt8(1)]
+
 		if ledDirection == LEFT_TO_RIGHT {
 			for x in 0..<self.ledCount {
 				let _adt = bitmapRep.colorAt(x:x,y:0)?.toHexBytes
