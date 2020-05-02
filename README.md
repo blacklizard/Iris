@@ -18,6 +18,7 @@ When asked for screen recording permission, please allow so that the app can rec
 1. `Controller IP` IP address of your ESP32. Ex: `192.168.1.100`
 2. `LED Count` Number of LED in your strip. Ex: `500`
 3. `LED Direction` - `RIGHT TO LEFT` (First LED at your right). `LEFT TO RIGHT` (First LED at your left)
+4. `Use static color` Choose a static color instead of mirroring screen 
 
 ## In case of disconnected controller
 The app will try to connect to the controller every 3 second until the connection is established. Once connection is established, the app will resume to send the display data to the controller.
