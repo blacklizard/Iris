@@ -7,9 +7,9 @@ Iris - An almost Nanoleaf screen mirror clone
 - A reliable WiFi AP/router
 
 ## Installation
-Prepare [ESP32 Controller](https://github.com/blacklizard/Iris-ESP32-Controller). Download Iris from release page, move the app to application folder.\ 
+Prepare [ESP32 Controller](https://github.com/blacklizard/Iris-ESP32-Controller). Download Iris from release page, move the app to application folder. 
 
-Preference panel will open if setting is incomplete, please fill up with all the necessary information\
+Preference panel will open if setting is incomplete, please fill up with all the necessary information
 
 When asked for screen recording permission, please allow so that the app can record the screen.
 

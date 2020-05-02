@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Removed HTTP and replaced with TCP socket
 - LED data size reduced from 7 byte to 3 byte for each LED
-- CPU usage dropped from 10~17% to 0~2%. Tested on i5 9400
+- CPU usage dropped from 10 ~ 17% to 0 ~ 2%. Tested on i5 9400
 
 ### Added
 - New config to select the location of first LED
