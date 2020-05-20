@@ -23,6 +23,7 @@ class Device {
     func sendStaticColor(data: [UInt8]) -> Bool {
         var container: [UInt8] = [UInt8(2)]
         container = container + data
+        print(container)
         return send(data: container)
     }
     

@@ -45,6 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 	
 	func applicationWillTerminate(_ aNotification: Notification) {
+        print("applicationWillTerminate")
         stopStrip()
 		detachObserver()
 	}
@@ -87,8 +88,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name("setting.update"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name("static.did.change"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name("configDidClose"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSWorkspace.didWakeNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSWorkspace.willSleepNotification, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(didWakeNotification(note:)),name: NSWorkspace.didWakeNotification, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(willSleepNotification(note:)),name: NSWorkspace.willSleepNotification, object: nil)
 	}
 	
 	private func registerObserver() {
