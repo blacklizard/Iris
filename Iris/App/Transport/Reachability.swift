@@ -16,7 +16,7 @@ class Reachability {
 	
 	func start(device: Device) {
 		self.device = device
-		timer = Timer.scheduledTimer(timeInterval: 3 , target: self, selector: #selector(self.checkDevice),userInfo: nil, repeats: true)
+		timer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(self.checkDevice),userInfo: nil, repeats: true)
 	}
 	
 	@objc func checkDevice() {

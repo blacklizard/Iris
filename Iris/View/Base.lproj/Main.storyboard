@@ -678,20 +678,12 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Iris" customModuleProvider="target">
                     <connections>
                         <outlet property="statusMenu" destination="7mx-nh-drX" id="Da6-3T-jXw"/>
-                        <outlet property="toggleMenuItem" destination="zad-ZX-hNh" id="2qd-SH-vZM"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="7mx-nh-drX">
                     <items>
-                        <menuItem title="Resume" id="zad-ZX-hNh">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="toggleState:" target="Voe-Tx-rLC" id="uMG-Af-PYP"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem isSeparatorItem="YES" id="Pga-Gm-SVa"/>
                         <menuItem title="Preferences" id="aJr-6d-flh">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>

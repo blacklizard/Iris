@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.0.4]
+### Changed
+- Change reachability interval to 5 seconds
+- ScreenGrabber class is now not aware of how ESP32 works
+
+### Added
+- Turn off when enter sleep. Vice versa.
+- Turn off strip when quiting application
+
+### Removed
+- Remove Pause/Resume menu item
+
 ## [0.0.3]
 ### Changed
 - Removed HTTP and replaced with TCP socket

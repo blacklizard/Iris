@@ -37,20 +37,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		} else {
 			updateSetting()
 			if(device.isReachable()) {
-				toggleMenuItem.title = "Pause"
 				startStrip()
-			}
+            } else {
+                reachability.start(device: device)
+            }
 		}
 	}
 	
 	func applicationWillTerminate(_ aNotification: Notification) {
+        stopStrip()
 		detachObserver()
 	}
 	
-	@IBAction func toggleState(_ sender: Any) {
-		toggleStateItem()
-	}
-	
+    private func startStrip() {
+        if(config.getIsStaticMode() == true) {
+            let _ = device.sendStaticColor(data: config.getColor())
+        } else {
+            screenGrabber?.start()
+        }
+    }
+    
+    private func stopStrip() {
+        if(config.getIsStaticMode() != true) {
+            screenGrabber?.stop()
+        }
+        
+        let _ = device.sendStaticColor(data: [UInt8(0), UInt8(0), UInt8(0)])
+    }
+    
 	@IBAction func showPreference(_ sender: NSMenuItem = NSMenuItem()) {
 		screenGrabber?.stop()
 		if preferenceWindowController == nil {
@@ -60,26 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		preferenceWindowController?.showWindow(self)
 		preferenceWindowController?.window?.makeKey()
 	}
-	
-	private func startStrip() {
-		if(config.getIsStaticMode() == true) {
-			var color:[UInt8] = [UInt8(2)]
-			color = color + config.getColor()
-			let _ = device.send(data: color)
-		} else {
-			screenGrabber?.start()
-		}
-	}
-	private func toggleStateItem() {
-		if(toggleMenuItem.title == "Resume") {
-			screenGrabber?.start()
-			toggleMenuItem.title = "Pause"
-		} else {
-			screenGrabber?.stop()
-			toggleMenuItem.title = "Resume"
-		}
-	}
-	
+	    
 	private func attachStatusMenu() {
 		statusItem.menu = statusMenu
 		let icon = NSImage(named: "statusBarIcon")
@@ -92,24 +87,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name("setting.update"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name("static.did.change"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name("configDidClose"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSWorkspace.didWakeNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSWorkspace.willSleepNotification, object: nil)
 	}
 	
 	private func registerObserver() {
 		NotificationCenter.default.addObserver(self, selector: #selector(updateSetting), name: NSNotification.Name("setting.update"), object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(staticConfigDidChange), name: NSNotification.Name("static.did.change"), object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(resumeScreenGrabber(notification:)), name: NSNotification.Name("configDidClose"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didWakeNotification(note:)),name: NSWorkspace.didWakeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willSleepNotification(note:)),name: NSWorkspace.willSleepNotification, object: nil)
 	}
 	
 	@objc func staticConfigDidChange() {
 		screenGrabber?.stop()
 		let isEnabled  = config.getIsStaticMode()
-		var color:[UInt8] = [UInt8(2)]
+		var color:[UInt8]!
 		if(isEnabled) {
-			color = color + config.getColor()
+			color = config.getColor()
 		} else {
-			color = color + [UInt8(0), UInt8(0), UInt8(0)]
+			color = [UInt8(0), UInt8(0), UInt8(0)]
 		}
-		let _ = device.send(data: color)
+		let _ = device.sendStaticColor(data: color)
 	}
 	
 	@objc func resumeScreenGrabber(notification: NSNotification) {
@@ -123,11 +122,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		screenGrabber?.setLedCount(count: config.getLedCount())
 		screenGrabber?.setLedDirection(direction:  config.getLedDirection())
 	}
+    
+    @objc private func didWakeNotification(note: NSNotification) {
+        startStrip()
+    }
+
+    @objc private func willSleepNotification(note: NSNotification) {
+        stopStrip()
+    }
+    
 }
 
 extension AppDelegate: ScreenGrabberDelegate {
 	func dataDidUpdated(data: [UInt8]) {
-		let success = device.send(data: data)
+		let success = device.sendScreenBuffer(data: data)
 		if !success {
 			timeoutCount += 1
 			if timeoutCount >= 3{

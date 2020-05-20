@@ -71,17 +71,26 @@ class ScreenGrabber {
 	
 	private func buildForSending(image: CGImage) {
 		let bitmapRep = NSBitmapImageRep(cgImage: image)
-		var container: [UInt8] = [UInt8(1)]
+		var container: [UInt8]!
+        var singlePixelData: [UInt8]!
 
 		if ledDirection == LEFT_TO_RIGHT {
 			for x in 0..<self.ledCount {
-				let _adt = bitmapRep.colorAt(x:x,y:0)?.toHexBytes
-				container = container + (_adt!)
+				singlePixelData = bitmapRep.colorAt(x:x,y:0)?.toHexBytes
+                if(container != nil) {
+                    container += singlePixelData
+                } else {
+                    container = singlePixelData
+                }
 			}
 		} else if ledDirection == RIGHT_TO_LEFT {
 			for x in (0..<self.ledCount).reversed() {
-				let _adt = bitmapRep.colorAt(x:x,y:0)?.toHexBytes
-				container = container + (_adt!)
+				singlePixelData = bitmapRep.colorAt(x:x,y:0)?.toHexBytes
+                if(container != nil) {
+                    container += singlePixelData
+                } else {
+                    container = singlePixelData
+                }
 			}
 		}
 		

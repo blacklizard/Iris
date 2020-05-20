@@ -21,7 +21,7 @@ When asked for screen recording permission, please allow so that the app can rec
 4. `Use static color` Choose a static color instead of mirroring screen 
 
 ## In case of disconnected controller
-The app will try to connect to the controller every 3 second until the connection is established. Once connection is established, the app will resume to send the display data to the controller.
+The app will try to connect to the controller every 5 second until the connection is established. Once connection is established, the app will resume to send the display data to the controller.
 
 ## How to choose screen
 Currently the app will record main display based on your `Display` preferences
